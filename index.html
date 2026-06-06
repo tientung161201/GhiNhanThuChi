@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghi nhận thu chi Quỹ Lớp MKA1K46</title>
+    <style>
+        :root { 
+            --thu-color: #10b981; 
+            --thu-bg-light: #d1fae5; 
+            --chi-color: #ef4444; 
+            --chi-bg-light: #fee2e2; 
+            --text-main: #1f2937; 
+        }
+        * { 
+            box-sizing: border-box; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        }
+        body { 
+            background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%); 
+            color: var(--text-main); 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+        }
+        .container { 
+            max-width: 450px; 
+            width: 100%; 
+            background: #ffffff; 
+            padding: 25px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+        }
+        h2 { 
+            text-align: center; 
+            margin-top: 0; 
+            color: #1e293b; 
+            margin-bottom: 20px; 
+        }
+        .balance-card { 
+            background: linear-gradient(to right, #4facfe 0%, #00f2fe 100%); 
+            color: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            text-align: center; 
+            margin-bottom: 25px; 
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.4); 
+        }
+        .balance-amount { 
+            font-size: 32px; 
+            font-weight: bold; 
+            margin-top: 5px; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2); 
+        }
+        .form-group { 
+            margin-bottom: 15px; 
+            position: relative; 
+        }
+        label { 
+            display: block; 
+            margin-bottom: 6px; 
+            font-weight: 600; 
+            font-size: 14px; 
+            color: #475569; 
+        }
+        input[type="date"], input[type="text"], input[type="number"] { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1.5px solid #cbd5e1; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            transition: all 0.3s; 
+            color: #334155; 
+        }
+        input:focus { 
+            border-color: #3b82f6; 
+            outline: none; 
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); 
+        }
+        
+        .autocomplete-items {
+            position: absolute; 
+            border: 1px solid #cbd5e1; 
+            border-top: none; 
+            border-radius: 0 0 8px 8px; 
+            z-index: 99; 
+            top: 100%; 
+            left: 0; 
+            right: 0; 
+            background-color: #ffffff; 
+            max-height: 200px; 
+            overflow-y: auto; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            display: none; 
+        }
+        .autocomplete-items div {
+            padding: 10px 12px; 
+            cursor: pointer; 
+            border-bottom: 1px solid #f1f5f9; 
+            font-size: 15px; 
+        }
+        .autocomplete-items div:last-child {
+            border-bottom: none; 
+        }
+        .autocomplete-items div:hover {
+            background-color: #e2e8f0; 
+        }
+
+        .toggle-container { 
+            display: flex; 
+            gap: 10px; 
+            margin-bottom: 20px; 
+        }
+        .toggle-container input[type="radio"] { 
+            display: none; 
+        }
+        .toggle-btn { 
+            flex: 1; 
+            padding: 12px; 
+            text-align: center; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            border: 2px solid transparent; 
+        }
+        .thu-btn { 
+            background-color: var(--thu-bg-light); 
+            color: var(--thu-color); 
+        }
+        .chi-btn { 
+            background-color: var(--chi-bg-light); 
+            color: var(--chi-color); 
+        }
+        input[type="radio"]#type_thu:checked + .thu-btn { 
+            background-color: var(--thu-color); 
+            color: white; 
+            border-color: #059669; 
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); 
+        }
+        input[type="radio"]#type_chi:checked + .chi-btn { 
+            background-color: var(--chi-color); 
+            color: white; 
+            border-color: #dc2626; 
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); 
+        }
+
+        button[type="submit"] { 
+            width: 100%; 
+            padding: 14px; 
+            background: linear-gradient(to right, #3b82f6 0%, #2563eb 100%); 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); 
+        }
+        button[type="submit"]:hover { 
+            background: linear-gradient(to right, #2563eb 0%, #1d4ed8 100%); 
+            transform: translateY(-1px); 
+            box-shadow: 0 6px 15px rgba(37, 99, 235, 0.4); 
+        }
+        button:disabled { 
+            background: #94a3b8; 
+            cursor: not-allowed; 
+            box-shadow: none; 
+            transform: none; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Ghi nhận thu chi Quỹ Lớp MKA1K46</h2>
+    
+    <div class="balance-card">
+        <div>Số dư hiện tại</div>
+        <div class="balance-amount" id="balanceDisplay">Đang tải...</div>
+    </div>
+
+    <form id="transactionForm">
+        <div class="form-group">
+            <label>Thời gian</label>
+            <input type="date" id="date" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Người thực hiện</label>
+            <input type="text" id="person" required placeholder="Nhập tên người thực hiện..." autocomplete="off">
+            <div id="autocomplete-list" class="autocomplete-items"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Số tiền (Nghìn VNĐ)</label>
+            <input type="number" id="amount" min="0" required placeholder="Ví dụ: Nhập 211 cho 211.000 đ">
+        </div>
+
+        <div class="toggle-container">
+            <input type="radio" id="type_thu" name="type" value="thu" required>
+            <label for="type_thu" class="toggle-btn thu-btn">Khoản thu</label>
+
+            <input type="radio" id="type_chi" name="type" value="chi" required>
+            <label for="type_chi" class="toggle-btn chi-btn">Khoản chi</label>
+        </div>
+
+        <div class="form-group">
+            <label>Lý do</label>
+            <input type="text" id="reason" required placeholder="Nhập lý do thu/chi...">
+        </div>
+
+        <button type="submit" id="submitBtn">Ghi nhận giao dịch</button>
+    </form>
+</div>
+
+<script>
+    const API_URL = "https://script.google.com/macros/s/AKfycby1YjlYlMaHO9fuMZvpD6YMB1zu_oJDfMYfi71_AQTStPgkdHg9xmHrbGydkV9hU0n4zg/exec"; 
+    
+    let globalNamesList = [];
+    
+    const balanceDisplay = document.getElementById('balanceDisplay');
+    const form = document.getElementById('transactionForm');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    const personInput = document.getElementById('person');
+    const autocompleteList = document.getElementById('autocomplete-list');
+
+    document.getElementById('date').valueAsDate = new Date();
+
+    async function loadInitialData() {
+        try {
+            const response = await fetch(API_URL);
+            const data = await response.json();
+            
+            balanceDisplay.innerText = new Intl.NumberFormat('vi-VN').format(data.balance) + ' đ';
+            globalNamesList = data.names;
+
+        } catch (error) {
+            balanceDisplay.innerText = 'Lỗi kết nối';
+            console.error('Lỗi lấy dữ liệu:', error);
+        }
+    }
+
+    personInput.addEventListener('input', function() {
+        const val = this.value;
+        autocompleteList.innerHTML = '';
+        
+        if (!val) {
+            autocompleteList.style.display = 'none';
+            return;
+        }
+        
+        autocompleteList.style.display = 'block';
+        let hasMatch = false;
+        
+        globalNamesList.forEach(name => {
+            if (name.toLowerCase().includes(val.toLowerCase())) {
+                hasMatch = true;
+                const item = document.createElement('div');
+                item.textContent = name;
+                
+                item.addEventListener('click', function() {
+                    personInput.value = name;
+                    autocompleteList.style.display = 'none';
+                });
+                
+                autocompleteList.appendChild(item);
+            }
+        });
+        
+        if (!hasMatch) {
+            autocompleteList.style.display = 'none';
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (e.target !== personInput && e.target !== autocompleteList) {
+            autocompleteList.style.display = 'none';
+        }
+    });
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault(); 
+        
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Đang xử lý...';
+
+        const rawAmount = document.getElementById('amount').value;
+        const realAmount = parseFloat(rawAmount) * 1000;
+
+        const payload = {
+            date: document.getElementById('date').value, 
+            person: document.getElementById('person').value, 
+            amount: realAmount, 
+            type: document.querySelector('input[name="type"]:checked').value, 
+            reason: document.getElementById('reason').value,
+            secretKey: "MKA1K46_Secure_784521" 
+        };
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                body: JSON.stringify(payload), 
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8" 
+                }
+            });
+            
+            const result = await response.json();
+            
+            if(result.status === 'success') {
+                alert('Đã ghi nhận giao dịch thành công!');
+                form.reset();
+                document.getElementById('date').valueAsDate = new Date();
+                balanceDisplay.innerText = 'Đang cập nhật...';
+                await loadInitialData();
+            } else {
+                alert('Lỗi ghi dữ liệu: ' + result.message);
+            }
+        } catch (error) {
+            alert('Lỗi mạng hoặc máy chủ. Vui lòng thử lại.');
+            console.error('Submit error:', error);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'Ghi nhận giao dịch';
+        }
+    });
+
+    loadInitialData();
+</script>
+</body>
+</html>
